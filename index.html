@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sample Shipment Tracking Demo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  h1 {
+    color: #4a90e2;
+    text-align: center;
+  }
+  label, input, button {
+    font-size: 1.1em;
+  }
+  input {
+    width: 70%;
+    padding: 8px;
+    margin-right: 10px;
+  }
+  button {
+    padding: 8px 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #357abd;
+  }
+  #result {
+    margin-top: 30px;
+    padding: 15px;
+    background: white;
+    border: 2px solid #4a90e2;
+    border-radius: 5px;
+  }
+  .disclaimer {
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #777;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<h1>Shipment Tracking - Demo</h1>
+
+<label for="trackingInput">Enter Tracking Code:</label><br />
+<input type="text" id="trackingInput" placeholder="e.g. FDX-SAMPLE-98273461" />
+<button onclick="showTracking()">Track</button>
+
+<div id="result" style="display:none;"></div>
+
+<div class="disclaimer">
+  <p><strong>Disclaimer:</strong> This is a <em>demo</em> tracking page for project purposes only.<br />No real shipment or tracking exists.</p>
+</div>
+
+<script>
+  function showTracking() {
+    const code = document.getElementById('trackingInput').value.trim();
+    const resultDiv = document.getElementById('result');
+
+    if (code === '') {
+      alert('Please enter a tracking code.');
+      return;
+    }
+
+    // You can add more sample codes here if you want
+    const sampleCodes = {
+      'FDX-SAMPLE-98273461': {
+        status: 'In Transit',
+        origin: 'New York, USA',
+        destination: 'Lenasia South, Gauteng, South Africa',
+        estimatedDelivery: '5-7 business days',
+        contents: 'Gift package with clothes and accessories'
+      },
+      'MT-DEMO-554921': {
+        status: 'Completed',
+        origin: 'USA',
+        destination: 'South Africa',
+        estimatedDelivery: 'N/A',
+        contents: 'International money transfer of $1,500 USD'
+      }
+    };
+
+    if (sampleCodes[code]) {
+      const data = sampleCodes[code];
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `
+        <h2>Tracking Code: ${code}</h2>
+        <p><strong>Status:</strong> ${data.status}</p>
+        <p><strong>Origin:</strong> ${data.origin}</p>
+        <p><strong>Destination:</strong> ${data.destination}</p>
+        <p><strong>Estimated Delivery:</strong> ${data.estimatedDelivery}</p>
+        <p><strong>Contents:</strong> ${data.contents}</p>
+      `;
+    } else {
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `<p style="color:red;">Tracking code not found in demo database. Try <code>FDX-SAMPLE-98273461</code> or <code>MT-DEMO-554921</code>.</p>`;
+    }
+  }
+</script>
+</body>
+</html>
